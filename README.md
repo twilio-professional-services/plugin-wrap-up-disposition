@@ -1,6 +1,15 @@
-# Your custom Twilio Flex Plugin
+# Wrap-Up Form with Disposition
+
+## Your custom Twilio Flex Plugin
 
 Twilio Flex Plugins allow you to customize the appearance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
+
+## How it works
+This Flex plugin adds an extra tab to the TaskCanvas to capture the Reason / Topic of the conversation, the Disposition (or outcome) and additional conversation attributes.  This information is saved in the appropriate conversations attributes on the task for the benefit of enhanced Flex Insights historical reporting.
+
+The agent must select (at a minimum) the Disposition value before they can Complete the task.  If no Disposition value is selected a Notification message is displayed.
+
+<img width="800px" src="images/WrapUpFormTab.png"/>
 
 ## Setup
 

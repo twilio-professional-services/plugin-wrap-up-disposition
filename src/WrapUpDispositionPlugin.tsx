@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Flex from '@twilio/flex-ui';
 import { FlexPlugin } from '@twilio/flex-plugin';
+import ConfigureFlexStrings from './strings'
 import CustomizeFlexComponents from './components';
 import CustomActions from './actions';
 import RegisterNotifications from "./notifications";
@@ -21,7 +22,7 @@ export default class WrapUpDispositionPlugin extends FlexPlugin {
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
     // const options: Flex.ContentFragmentProps = { sortOrder: -1 };
     // flex.AgentDesktopView.Panel1.Content.add(<CustomTaskList key="WrapUpDispositionPlugin-component" />, options);
-
+    ConfigureFlexStrings(manager);
     CustomizeFlexComponents(manager);
     CustomActions(manager);
     RegisterNotifications(manager);

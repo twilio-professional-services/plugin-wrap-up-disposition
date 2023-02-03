@@ -4,32 +4,17 @@ import { ITask, Actions, withTaskContext, withTheme, Icon, TaskHelper, Manager }
 import { Theme } from '@twilio-paste/core/theme';
 import { Button, Input, Flex, Box, Label, Heading, Table, THead, TBody, Th, Tr, Td, Select, Option, Checkbox, RadioGroup, Radio } from "@twilio-paste/core";
 import { PLUGIN_NAME } from '../../utils/constants';
+import { StringTemplates, outcomes, topics } from  '../../strings/WrapUpFormStrings';
 
 
-const outcomes: string[] = [
-  'New Order',
-  'Order Updated',
-  'Provided Product details',
-  'Canceled Service',
-  'Changed Service',
-  'Renewed Membership',
-  'Refund Processed',
-  'Warranty Extended'];
-
-
-const topics: string[] = [
-  "Inquiry",
-  "Purchase",
-  "Return",
-  "Warranty",
-  "Membership"
-]
+const language = "en-US";
 
 interface ComponentProps {
-  task: ITask
+  task: ITask,
+  strings: { [index:string] : string }
 }
 
-const TaskWrapUpForm = ({ task }: ComponentProps) => {
+const TaskWrapUpForm = ({ task, strings }: ComponentProps) => {
   const [changed, setChanged] = useState(false);
   const [reason, setReason] = useState('');
   const [topic, setTopic] = useState('');
@@ -37,6 +22,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
   const [isNewCustomer, setIsNewCustomer] = useState(false);
   const [fraudAlert, setFraudAlert] = useState('');
 
+  //console.log(PLUGIN_NAME, 'strings:', strings);
 
   //Init state from task attributes on initial mount ONLY
   useEffect(() => {
@@ -105,7 +91,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
           <TBody>
             <Tr key='reason'>
               <Th scope="row">
-                <Label htmlFor="reason">Reason</Label>
+                <Label htmlFor="reason">{strings[StringTemplates.WrapUpReason]}</Label>
               </Th>
               <Td>
                 <Input
@@ -118,7 +104,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
             </Tr>
             <Tr key='topic'>
               <Th scope="row">
-                <Label htmlFor="topic">Topic</Label>
+                <Label htmlFor="topic">{strings[StringTemplates.WrapUpTopic]}</Label>
               </Th>
               <Td>
                 <Select
@@ -126,16 +112,16 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
                   onChange={handleTopicChange}
                   id="topic"
                 >
-                  <Option value="none" disabled>SELECT TOPIC</Option>
-                  {topics.map((rt) => (
-                    <Option key={rt} value={rt}> {rt} </Option>
+                  <Option value="none" disabled>{strings[StringTemplates.WrapUpSelectTopic]}</Option>
+                  {topics.map((topic) => (
+                    <Option key={topic.value} value={topic.value}> {topic.labels[language]} </Option>
                   ))}
                 </Select>
               </Td>
             </Tr>
             <Tr key='outcome'>
               <Th scope="row">
-                <Label htmlFor="outcome" required>Disposition</Label>
+                <Label htmlFor="outcome" required>{strings[StringTemplates.WrapUpDisposition]}</Label>
               </Th>
               <Td>
                 <Select
@@ -143,9 +129,9 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
                   onChange={handleOutcomeChange}
                   id="outcome"
                 >
-                  <Option value="none" disabled>SELECT OUTCOME</Option>
+                  <Option value="none" disabled>{strings[StringTemplates.WrapUpSelectDisposition]}</Option>
                   {outcomes.map((option) => (
-                    <Option key={option} value={option}> {option} </Option>
+                    <Option key={option.value} value={option.value}> {option.labels[language]} </Option>
                   ))}
                 </Select>
               </Td>
@@ -154,7 +140,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
             <Tr key='newCustomer'>
               <Th scope="row">
-                <Label htmlFor="newCustomer">New Customer</Label>
+                <Label htmlFor="newCustomer">{strings[StringTemplates.WrapUpNewCustomer]}</Label>
               </Th>
               <Td>
                 <Checkbox
@@ -164,7 +150,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
                   checked={isNewCustomer}
                   onChange={onNewCustomerChange}
                 >
-                  New
+                 Check for New
                 </Checkbox>
 
               </Td>
@@ -172,7 +158,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
             <Tr key='fraudAlert'>
               <Th scope="row">
-                <Label htmlFor="fraud">Fraud Alert</Label>
+                <Label htmlFor="fraud">{strings[StringTemplates.WrapUpFraud]}</Label>
               </Th>
               <Td>
                 <RadioGroup
@@ -185,10 +171,8 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
                   }}
                   orientation="horizontal"
                 >
-                  <Radio id="fraud-yes" value="yes" name="fraud-yes"> Yes </Radio>
-                  <Radio id="fraud-no" value="no" name="fraud-no"> No </Radio>
-                  <Radio id="fraud-unkown" value="unkown" name="fraud-unkown"> Unknown </Radio>
-
+                  <Radio id="fraud-yes" value="yes" name="fraud-yes"> {strings[StringTemplates.WrapUpFraudYes]} </Radio>
+                  <Radio id="fraud-no" value="no" name="fraud-no"> {strings[StringTemplates.WrapUpFraudNo]} </Radio>
                 </RadioGroup>
               </Td>
             </Tr>

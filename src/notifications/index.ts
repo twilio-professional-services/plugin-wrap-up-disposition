@@ -4,16 +4,17 @@ import {
   NotificationBar,
   NotificationType,
 } from "@twilio/flex-ui";
+import { StringTemplates } from '../strings/WrapUpFormStrings';
 
 export enum NotificationIds {
   SELECT_OUTCOME = 'SelectOutcome'
 }
 
+
 const registerSelectOutcome = (manager: Flex.Manager) => {
-  //manager.strings["SelectOutcome"] = 'Please complete the Wrap Up notes and select the Outcome';
   Notifications.registerNotification({
     id: NotificationIds.SELECT_OUTCOME,
-    content: "Please complete the Wrap Up notes and select the Outcome", 
+    content: StringTemplates.WrapUpSelectOutcomeNotification, 
     closeButton: true,
     timeout: 3000,
     type: NotificationType.warning
