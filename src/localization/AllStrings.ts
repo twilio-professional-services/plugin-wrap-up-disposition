@@ -5,8 +5,6 @@ export interface AllStrings<T = string> extends Strings<T> {
   WrapUpTopic: T;
   WrapUpDisposition: T;
   WrapUpFraud: T;
-  WrapUpFraudYes: T;
-  WrapUpFraudNo: T;
   WrapUpNewCustomer: T;
   WrapUpSelectOutcomeNotification: T;
 }

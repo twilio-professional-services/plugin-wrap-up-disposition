@@ -9,11 +9,12 @@ import {
   Template
 } from '@twilio/flex-ui';
 import { Theme } from '@twilio-paste/core/theme';
-import { Button, Input, Flex, Box, Label, Heading, Table, THead, TBody, Th, Tr, Td, Select, Option, Checkbox, RadioGroup, Radio } from "@twilio-paste/core";
+import { Button, Input, Flex, Box, Label, Heading, Table, THead, TBody, Th, Tr, Td, Select, Option, Checkbox } from "@twilio-paste/core";
 import { PLUGIN_NAME } from '../../utils/constants';
-import { outcomes, topics } from '../../strings/WrapUpFormStrings';
+import { outcomes, topics } from '../../strings/WrapUpCustomValues';
 
-
+//get language from worker attributes
+//const language = "es-MX";
 const language = "en-US";
 
 interface ComponentProps {
@@ -26,7 +27,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
   const [topic, setTopic] = useState('');
   const [outcome, setOutcome] = useState('');
   const [isNewCustomer, setIsNewCustomer] = useState(false);
-  const [fraudAlert, setFraudAlert] = useState('');
+  const [fraudAlert, setFraudAlert] = useState(false);
 
   //console.log(PLUGIN_NAME, 'strings:', strings);
 
@@ -38,6 +39,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
       setTopic(task.attributes?.conversations?.initiative || '');
       setOutcome(task.attributes?.conversations?.outcome || '');
       setIsNewCustomer(task.attributes?.conversations?.conversation_attribute_6 || false);
+      setFraudAlert(task.attributes?.conversations?.conversation_attribute_7 || false);
     }
     //No return cleanup function
   }, [task])
@@ -79,15 +81,23 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
     setIsNewCustomer(event.target.checked);
   }
 
+  //Checkbox change
+  const onFraudChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChanged(true);
+    setFraudAlert(event.target.checked);
+  }
+
+
   const saveForm = async () => {
     let convData = {
       initiative: topic,
       outcome,
       content: reason,
-      conversation_attribute_6: isNewCustomer
+      conversation_attribute_6: isNewCustomer,
+      conversation_attribute_7: fraudAlert
     };
     let newTaskAttr = { conversations: convData };
-    console.log(PLUGIN_NAME, 'Save Task Attr:', newTaskAttr );
+    console.log(PLUGIN_NAME, 'Save Task Attr:', newTaskAttr);
     await Actions.invokeAction("SetTaskAttributes", { sid: task.sid, attributes: newTaskAttr, mergeExisting: true });
     setChanged(false);
   }
@@ -163,11 +173,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
 
             <Tr key='newCustomer'>
-              <Th scope="row">
-                <Label htmlFor="newCustomer">
-                  <Template source={templates.WrapUpNewCustomer} />
-                </Label>
-              </Th>
+              <Td />
               <Td>
                 <Checkbox
                   id="newCustomer"
@@ -176,40 +182,27 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
                   checked={isNewCustomer}
                   onChange={onNewCustomerChange}
                 >
-                  Check for New
+                  <Template source={templates.WrapUpNewCustomer} />
                 </Checkbox>
 
               </Td>
             </Tr>
 
             <Tr key='fraudAlert'>
-              <Th scope="row">
-                <Label htmlFor="fraud">
-                  <Template source={templates.WrapUpFraud} />
-                </Label>
-              </Th>
+              <Td />
               <Td>
-                <RadioGroup
-                  name="fraud"
+                <Checkbox
                   id="fraud"
-                  value={fraudAlert}
-                  legend="Select Potential Fraud Status"
-                  onChange={newValue => {
-                    setFraudAlert(newValue);
-                  }}
-                  orientation="horizontal"
+                  value="fraud"
+                  name="customerStatus"
+                  checked={fraudAlert}
+                  onChange={onFraudChange}
                 >
-                  <Radio id="fraud-yes" value="yes" name="fraud-yes">
-                    <Template source={templates.WrapUpFraudYes} />
-                  </Radio>
-                  <Radio id="fraud-no" value="no" name="fraud-no">
-                    <Template source={templates.WrapUpFraudNo} />
-                  </Radio>
+                  <Template source={templates.WrapUpFraud} />
+                </Checkbox>
 
-                </RadioGroup>
               </Td>
             </Tr>
-
 
             <Tr key='button'>
               <Td />

@@ -4,8 +4,6 @@ export interface WrapUpFormStrings<T = string> {
   WrapUpTopic: T;
   WrapUpDisposition: T;
   WrapUpFraud: T;
-  WrapUpFraudYes: T;
-  WrapUpFraudNo: T;
   WrapUpNewCustomer: T;
   WrapUpSelectOutcomeNotification: T;
 }

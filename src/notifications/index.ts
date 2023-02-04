@@ -4,7 +4,7 @@ import {
   NotificationBar,
   NotificationType,
 } from "@twilio/flex-ui";
-import { StringTemplates } from '../strings/WrapUpFormStrings';
+import { StringTemplates } from '../utils/constants';
 
 export enum NotificationIds {
   SELECT_OUTCOME = 'SelectOutcome'
