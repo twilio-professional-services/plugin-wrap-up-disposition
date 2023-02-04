@@ -4,9 +4,7 @@
 export enum StringTemplates {
   WrapUpReason = "WrapUpReason",
   WrapUpTopic = "WrapUpTopic",
-  WrapUpSelectTopic = "WrapUpSelectTopic",
   WrapUpDisposition = "WrapUpDisposition",
-  WrapUpSelectDisposition = "WrapUpSelectDisposition",
   WrapUpFraud = "WrapUpFraud",
   WrapUpFraudYes = "WrapUpFraudYes",
   WrapUpFraudNo = "WrapUpFraudNo",
@@ -14,29 +12,18 @@ export enum StringTemplates {
   WrapUpSelectOutcomeNotification = "WrapUpSelectOutcomeNotification"
 }
 
-
-export default {
-    [StringTemplates.WrapUpReason]: "Reason",
-    [StringTemplates.WrapUpTopic]: "Topic",
-    [StringTemplates.WrapUpSelectTopic]: "SELECT TOPIC",
-    [StringTemplates.WrapUpDisposition]: "Disposition",
-    [StringTemplates.WrapUpSelectDisposition]: "SELECT DISPOSITION",
-    [StringTemplates.WrapUpFraud]: "Fraud Alert",
-    [StringTemplates.WrapUpNewCustomer]: "New Customer",
-    [StringTemplates.WrapUpFraudYes]: "Yes",
-    [StringTemplates.WrapUpFraudNo]: "No",
-    [StringTemplates.WrapUpSelectOutcomeNotification]:
-      "Please complete the Wrap Up notes and select the Outcome"
-};
-//////
-
-
 interface IOutcome {
   value: string,
-  labels: { [language: string]: string }
+  labels: { [language: string]: string },
+  disabled?: boolean
 }
 
 export const outcomes: Array<IOutcome> = [
+  {
+    value: "SELECT OUTCOME",
+    labels: { "en-US": "SELECT OUTCOME" },
+    disabled: true
+  },
   {
     value: "New Order",
     labels: { "en-US": "New Order" }
@@ -74,11 +61,16 @@ export const outcomes: Array<IOutcome> = [
 
 interface ITopic {
   value: string,
-  labels: { [language: string]: string }
+  labels: { [language: string]: string },
+  disabled?: boolean
 }
 
 export const topics: Array<ITopic> = [
   {
+    value: "SELECT TOPIC",
+    labels: { "en-US": "SELECT TOPIC" },
+    disabled: true
+  },{
     value: "Inquiry",
     labels: { "en-US": "Inquiry" }
   },
