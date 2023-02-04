@@ -8,3 +8,8 @@ export enum StringTemplates {
   WrapUpNewCustomer = "WrapUpNewCustomer",
   WrapUpSelectOutcomeNotification = "WrapUpSelectOutcomeNotification"
 }
+
+export enum Languages {
+  EN = "en-US",
+  ES = "es-MX"
+}

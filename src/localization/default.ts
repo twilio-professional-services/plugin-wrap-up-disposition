@@ -1,6 +1,7 @@
 import { WrapUpFormStrings} from './WrapUpFormStrings';
 
 const wrapUpFormPluginStrings: WrapUpFormStrings = {
+  WrapUpLabel: "Wrap Up",
   WrapUpReason: "Reason",
   WrapUpTopic: "Topic",
   WrapUpDisposition: "Disposition",

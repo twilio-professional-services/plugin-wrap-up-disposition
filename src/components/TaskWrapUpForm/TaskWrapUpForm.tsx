@@ -13,15 +13,12 @@ import { Button, Input, Flex, Box, Label, Heading, Table, THead, TBody, Th, Tr, 
 import { PLUGIN_NAME } from '../../utils/constants';
 import { outcomes, topics } from '../../strings/WrapUpCustomValues';
 
-//get language from worker attributes
-//const language = "es-MX";
-const language = "en-US";
-
 interface ComponentProps {
-  task: ITask
+  task: ITask,
+  language: string
 }
 
-const TaskWrapUpForm = ({ task }: ComponentProps) => {
+const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
   const [changed, setChanged] = useState(false);
   const [reason, setReason] = useState('');
   const [topic, setTopic] = useState('');
