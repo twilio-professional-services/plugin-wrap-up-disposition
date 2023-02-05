@@ -6,25 +6,34 @@ import {
   withTaskContext,
   withTheme,
   templates,
-  Template
+  Template,
+  useFlexSelector
 } from '@twilio/flex-ui';
 import { Theme } from '@twilio-paste/core/theme';
-import { Button, Input, Flex, Box, Label, Heading, Table, THead, TBody, Th, Tr, Td, Select, Option, Checkbox } from "@twilio-paste/core";
-import { PLUGIN_NAME } from '../../utils/constants';
+import { Button, Input, Flex, Label, Table, TBody, Th, Tr, Td, Select, Option, Checkbox } from "@twilio-paste/core";
+import { PLUGIN_NAME, Languages } from '../../utils/constants';
 import { outcomes, topics } from '../../strings/WrapUpCustomValues';
+import { AppState } from 'states';
 
 interface ComponentProps {
-  task: ITask,
-  language: string
+  task: ITask
 }
 
-const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
+const TaskWrapUpForm = ({ task }: ComponentProps) => {
   const [changed, setChanged] = useState(false);
   const [reason, setReason] = useState('');
   const [topic, setTopic] = useState('');
   const [outcome, setOutcome] = useState('');
   const [isNewCustomer, setIsNewCustomer] = useState(false);
   const [fraudAlert, setFraudAlert] = useState(false);
+
+  // Get current language from worker attributes in Flex AppState
+  const language = useFlexSelector((state: AppState) => {
+    let workerLanguage = state?.flex?.worker?.attributes?.language || Languages.EN;
+    console.log(PLUGIN_NAME, 'language: ', workerLanguage);
+    //Todo: Trigger reload all strings
+    return (workerLanguage);
+  });
 
   //console.log(PLUGIN_NAME, 'strings:', strings);
 
@@ -39,7 +48,7 @@ const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
       setFraudAlert(task.attributes?.conversations?.conversation_attribute_7 || false);
     }
     //No return cleanup function
-  }, [task])
+  }, [task, language])
 
 
 
@@ -138,8 +147,7 @@ const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
                     } else {
                       return (<Option key={topic.value} value={topic.value}> {topic.labels[language]} </Option>)
                     }
-                  })
-                  }
+                  })}
                 </Select>
               </Td>
             </Tr>
@@ -147,7 +155,6 @@ const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
               <Th scope="row">
                 <Label htmlFor="outcome" required>
                   <Template source={templates.WrapUpDisposition} />
-
                 </Label>
               </Th>
               <Td>
@@ -162,12 +169,10 @@ const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
                     } else {
                       return (<Option key={option.value} value={option.value}> {option.labels[language]} </Option>)
                     }
-                  })
-                  }
+                  })}
                 </Select>
               </Td>
             </Tr>
-
 
             <Tr key='newCustomer'>
               <Td />
@@ -202,28 +207,24 @@ const TaskWrapUpForm = ({ task, language }: ComponentProps) => {
             </Tr>
 
             <Tr key='button'>
-              <Td />
+              <Td>
+                [Lang: {language}]
+              </Td>
               <Td>
                 <Button variant="primary" size="small"
                   id="saveButton"
                   onClick={saveForm}
                   disabled={!changed}
                 >
-                  Save
+                  <Template source={templates.Save} />
                 </Button>
               </Td>
             </Tr>
           </TBody>
         </Table>
-
-
-
-
       </Flex>
-
     </Theme.Provider >
   );
 }
-
 
 export default withTaskContext(withTheme(TaskWrapUpForm));

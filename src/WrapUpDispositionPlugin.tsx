@@ -25,7 +25,7 @@ export default class WrapUpDispositionPlugin extends FlexPlugin {
     const language: string = workerAttributes?.language || defaultLanguage;
 
     ConfigureFlexStrings(manager, language);
-    CustomizeFlexComponents(manager, language);
+    CustomizeFlexComponents(manager);
     CustomActions(manager);
     RegisterNotifications(manager);
 
