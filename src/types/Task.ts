@@ -1,0 +1,37 @@
+
+export interface ConversationsAttributes  {
+  case?: string;
+  campaign?: string;
+  outcome?: string;
+  content?: string;
+  initiative?: string;
+  conversation_attribute_1?: string;
+  conversation_attribute_2?: string;
+  conversation_attribute_3?: string;
+  conversation_attribute_4?: string;
+  conversation_attribute_5?: string;
+  conversation_attribute_6?: string;
+  conversation_attribute_7?: string;
+  conversation_attribute_8?: string;
+  conversation_attribute_9?: string;
+  conversation_attribute_10?: string;
+  conversation_label_1?: string;
+  conversation_label_2?: string;
+  conversation_label_3?: string;
+  conversation_label_4?: string;
+  conversation_label_5?: string;
+  conversation_label_6?: string;
+  conversation_label_8?: string;
+  conversation_label_9?: string;
+  conversation_label_10?: string;
+  conversation_measure_1?: number;
+  conversation_measure_2?: number;
+  conversation_measure_3?: number;
+  conversation_measure_4?: number;
+  conversation_measure_5?: number;
+  conversation_measure_6?: number;
+  conversation_measure_7?: number;
+  conversation_measure_8?: number;
+  conversation_measure_9?: number;
+  conversation_measure_10?: number;
+};

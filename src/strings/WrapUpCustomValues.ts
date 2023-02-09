@@ -15,11 +15,11 @@ export const outcomes: Array<IOutcome> = [
   },
   {
     value: "New Order",
-    labels: { "en-US": "New Order", "es-MX": "Nuevo orden" }
+    labels: { "en-US": "New Order", "es-MX": "Nueva orden" }
   },
   {
     value: "Order Updated",
-    labels: { "en-US": "Order Updated","es-MX": "Orden es actualizaciones" }
+    labels: { "en-US": "Order Updated","es-MX": "Orden actualizada" }
   },
   {
     value: "Provided Product details",
@@ -69,7 +69,7 @@ export const topics: Array<ITopic> = [
   },
   {
     value: "Return",
-    labels: { "en-US": "Return", "es-MX": "Retorno" }
+    labels: { "en-US": "Return", "es-MX": "Devolución" }
   },
   {
     value: "Warranty",

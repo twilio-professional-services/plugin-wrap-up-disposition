@@ -5,12 +5,12 @@ import { WrapUpFormStrings} from './WrapUpFormStrings';
 //we recommend you merge these extra strings into the language asset files
 
 const wrapUpFormPluginStrings: WrapUpFormStrings = {
-  WrapUpLabel: "Envolver",
+  WrapUpLabel: "Cierre",
   WrapUpReason: "Razón",
   WrapUpTopic: "Tema",
   WrapUpDisposition: "Resultado",
   WrapUpFraud: "Alerta de fraude",
-  WrapUpNewCustomer: "Nueva cliente",
+  WrapUpNewCustomer: "Nuevo cliente",
   WrapUpSelectOutcomeNotification:
     "Complete las notas de cierre y seleccione el resultado"
 };

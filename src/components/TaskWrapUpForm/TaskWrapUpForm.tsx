@@ -14,6 +14,7 @@ import { Button, Input, Flex, Label, Table, TBody, Th, Tr, Td, Select, Option, C
 import { PLUGIN_NAME, Languages } from '../../utils/constants';
 import { outcomes, topics } from '../../strings/WrapUpCustomValues';
 import { AppState } from 'states';
+import { ConversationsAttributes } from 'types/Task';
 
 interface ComponentProps {
   task: ITask
@@ -28,8 +29,8 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
   const [fraudAlert, setFraudAlert] = useState(false);
 
   // Get current language from worker attributes in Flex AppState
-  const language = useFlexSelector((state: AppState) => {
-    let workerLanguage = state?.flex?.worker?.attributes?.language || Languages.EN;
+  const language: string = useFlexSelector((state: AppState) => {
+    let workerLanguage: string = state?.flex?.worker?.attributes?.language || Languages.EN;
     console.log(PLUGIN_NAME, 'language: ', workerLanguage);
     //Todo: Trigger reload all strings
     return (workerLanguage);
@@ -54,9 +55,9 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
   //Text field change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value: string = e.target.value;
     //Text Field id needs to match State property
-    const id = e.target.id;
+    const id: string = e.target.id;
     setChanged(true);
     switch (id) {
       case 'reason':
@@ -67,7 +68,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
   // Save Disposition in the Outcome attribute
   const handleOutcomeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+    const value: string = e.target.value;
     //console.log(PLUGIN_NAME, 'outcome change:', value );
     setChanged(true);
     setOutcome(value);
@@ -75,7 +76,7 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
   //Capture topic (type of request)
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+    const value: string = e.target.value;
     //console.log(PLUGIN_NAME, 'topic change:', value );
     setChanged(true);
     setTopic(value);
@@ -95,12 +96,12 @@ const TaskWrapUpForm = ({ task }: ComponentProps) => {
 
 
   const saveForm = async () => {
-    let convData = {
+    let convData: ConversationsAttributes = {
       initiative: topic,
       outcome,
       content: reason,
-      conversation_attribute_6: isNewCustomer,
-      conversation_attribute_7: fraudAlert
+      conversation_attribute_6: isNewCustomer.toString(),
+      conversation_attribute_7: fraudAlert.toString()
     };
     let newTaskAttr = { conversations: convData };
     console.log(PLUGIN_NAME, 'Save Task Attr:', newTaskAttr);
