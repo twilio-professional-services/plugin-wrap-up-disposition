@@ -2,6 +2,7 @@ import React from 'react';
 import * as Flex from '@twilio/flex-ui';
 import { WorkerAttributes } from '@twilio/flex-ui';
 import { FlexPlugin } from '@twilio/flex-plugin';
+import { CustomizationProvider } from '@twilio-paste/core/customization';
 import ConfigureFlexStrings from './strings'
 import CustomizeFlexComponents from './components';
 import CustomActions from './actions';
@@ -20,6 +21,9 @@ export default class WrapUpDispositionPlugin extends FlexPlugin {
    * @param flex { typeof Flex }
    */
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
+    flex.setProviders({
+      PasteThemeProvider: CustomizationProvider,
+    });
     const defaultLanguage = Languages.EN;
     const workerAttributes = manager.workerClient?.attributes as WorkerAttributes;
     const language: string = workerAttributes?.language || defaultLanguage;

@@ -13,3 +13,13 @@ export enum Languages {
   EN = "en-US",
   ES = "es-MX"
 }
+
+export enum CustomerStatus {
+  NEW = "New Customer",
+  EXISTING = "Existing Customer"
+}
+
+export enum FraudStatus {
+  NO = "No Fraud",
+  MAYBE = "Possible Fraud",
+}
